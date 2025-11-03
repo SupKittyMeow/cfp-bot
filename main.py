@@ -37,10 +37,10 @@ async def reset_points(interaction: discord.Interaction):
 prefixes = ["", "Wow!", "Amazing!", "How?", "no."]
 suffixes = ["", "I didn't know it was possible!", "That's crazy!", "This user should probably touch grass...", "This user should DEFINITELY touch grass!", "pretty cool i guess.", "67 mustard mangos hahahaha", "If you think this is fun, try the real game on Steam! no this isnt an ad this is a joke obviously *nervous laugh*", "jk this user only has -1 because he's bad at video games :("]
 
-@bot.tree.command(name="show_off", description="Publicly show how many points you have")
+@bot.tree.command(name="brag", description="Publicly show how many points you have")
 @discord.app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
 @discord.app_commands.allowed_installs(guilds=True, users=True)
-async def show_off(interaction: discord.Interaction):
+async def brag(interaction: discord.Interaction):
     points = redis.get(str(interaction.user.id))
     if (points == None):
         await interaction.response.send_message(f"lmao {interaction.user.mention} has 0 points and decided to show it off why", ephemeral=False)
