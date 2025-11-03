@@ -14,7 +14,7 @@ bot = commands.Bot(command_prefix='/', intents=intents)
 
 redis = Redis.from_env()
 if redis.ping() == "PONG":
-        print("Redis is running!")
+        print("Redis is running!", flush=True)
 
 @bot.tree.command(name="click", description="Get 1 point")
 @discord.app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
@@ -52,6 +52,6 @@ async def brag(interaction: discord.Interaction):
 @bot.event
 async def on_ready():
     await bot.tree.sync()
-    print("The bot is logged in and ready!")
+    print("The bot is logged in and ready!", flush=True)
 
 bot.run(str(os.environ.get("DISCORD_BOT_TOKEN")))
