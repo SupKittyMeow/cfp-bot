@@ -26,6 +26,19 @@ async def click(interaction: discord.Interaction):
 
     await interaction.response.send_message(f"Click! You now have {str(int(points) + 1)} points!", ephemeral=True)
 
+@bot.tree.command(name="minus_one_point", description="Why does this exist? The real question is why should it NOT exist?")
+@discord.app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+@discord.app_commands.allowed_installs(guilds=True, users=True)
+async def minus_one_point(interaction: discord.Interaction):
+    points = redis.get(str(interaction.user.id))
+    if (points == None):
+        points = -1
+        
+    redis.set(str(interaction.user.id), str(int(points) - 1))
+
+    await interaction.response.send_message(f"You clicked the -1 point button! You now have {str(int(points) - 1)} points!", ephemeral=True)
+
+
 @bot.tree.command(name="reset_points", description="Set your points to 0")
 @discord.app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
 @discord.app_commands.allowed_installs(guilds=True, users=True)
