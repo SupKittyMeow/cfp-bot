@@ -75,7 +75,7 @@ async def points_of(interaction: discord.Interaction, user_id: str):
         if fetched_user != None:
             points = redis.get(str(arg))
             if (points == None):
-                await interaction.response.send_message(f"{fetched_user.display_name} has no points! Get them to start playing!", ephemeral=True)
+                await interaction.response.send_message(f"{fetched_user.display_name} has no points. Get them to start playing!", ephemeral=True)
             else:
                 await interaction.response.send_message(f"{fetched_user.display_name} has {points} points.", ephemeral=True)
         else:
