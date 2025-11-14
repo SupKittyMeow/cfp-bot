@@ -62,27 +62,37 @@ async def brag(interaction: discord.Interaction):
     else:
         await interaction.response.send_message(f"{random.choice(prefixes)} {interaction.user.mention} has {points} points! {random.choice(suffixes)}", ephemeral=False)
 
+
+@bot.tree.command(name="admin_abuse", description="Publicly show how many points you have... to @everyone")
+@discord.app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+@discord.app_commands.allowed_installs(guilds=True, users=True)
+async def admin_abuse(interaction: discord.Interaction):
+    if interaction.guild is None or interaction.permissions.mention_everyone:
+        points = redis.get(str(interaction.user.id))
+        if (points == None):
+            await interaction.response.send_message(f"lmao {interaction.user.mention} has 0 points and decided to show it off to @everyone why", ephemeral=False)
+        else:
+            await interaction.response.send_message(f"{random.choice(prefixes)} {interaction.user.mention} has {points} points and decided to show it off to @everyone! {random.choice(suffixes)}", ephemeral=False, allowed_mentions=discord.AllowedMentions(everyone=True))
+    else:
+        await interaction.response.send_message(f"Yeah sorry no you're not an admin", ephemeral=True)
+
+
 @bot.tree.command(name="points_of", description="Find the points of a specific player with their user ID")
 @discord.app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
 @discord.app_commands.allowed_installs(guilds=True, users=True)
-async def points_of(interaction: discord.Interaction, user_id: str):
-    if (user_id.isdigit() and (len(user_id) == 18 or len(user_id) == 19)):
-        arg = int(user_id)
-        try:
-            fetched_user = await bot.fetch_user(arg)
-        except:
-            fetched_user = None
-        if fetched_user != None:
-            points = redis.get(str(arg))
-            if (points == None):
-                await interaction.response.send_message(f"{fetched_user.display_name} has no points. Get them to start playing!", ephemeral=True)
-            else:
-                await interaction.response.send_message(f"{fetched_user.display_name} has {points} points.", ephemeral=True)
+async def points_of(interaction: discord.Interaction, user: discord.User):
+    try:
+        fetched_user = await bot.fetch_user(user.id)
+    except:
+        fetched_user = None
+    if fetched_user != None:
+        points = redis.get(str(user.id))
+        if (points == None):
+            await interaction.response.send_message(f"{fetched_user.display_name} has no points. Get them to start playing!", ephemeral=True)
         else:
-            await interaction.response.send_message(f"Not a valid user ID! Did you spell it right?", ephemeral=True)
-            return
+            await interaction.response.send_message(f"{fetched_user.display_name} has {points} points.", ephemeral=True)
     else:
-        await interaction.response.send_message(f"Not a valid user ID! A user ID is NOT the username. It is a series of 18-19 digits.\n*For example: 123456789012345678*", ephemeral=True)
+        await interaction.response.send_message(f"Not a valid user!", ephemeral=True)
         return
     
 @bot.event
