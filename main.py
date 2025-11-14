@@ -77,7 +77,7 @@ async def admin_abuse(interaction: discord.Interaction):
         await interaction.response.send_message(f"Yeah sorry no you're not an admin", ephemeral=True)
 
 
-@bot.tree.command(name="points_of", description="Find the points of a specific player with their user ID")
+@bot.tree.command(name="points_of", description="Find the points of a specific player")
 @discord.app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
 @discord.app_commands.allowed_installs(guilds=True, users=True)
 async def points_of(interaction: discord.Interaction, user: discord.User):
