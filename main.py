@@ -50,7 +50,7 @@ async def reset_points(interaction: discord.Interaction):
 
 
 prefixes = ["", "Wow!", "Amazing!", "How?", "no.", "because Jonny keeps clicking while I’m grabbing snacks,"]
-suffixes = ["", "I didn't know it was possible!", "That's crazy!", "That's crazy! Crazy? I was crazy once? They locked me in a room. A Ronny room. A Ronny room with Ronnyies (and rats). Ronnies? Ronnies make me ok im not typing more of this", "This user should probably touch grass...", "This user should DEFINITELY touch grass!", "pretty cool i guess.", "67 mustard mangos hahahaha", "If you think this is fun, try the real game on Steam! no this isnt an ad this is a joke obviously *nervous laugh*", "jk this user only has negative one because he's bad at video games :(", "peak flex"]
+suffixes = ["", "I didn't know it was possible!", "That's crazy!", "That's crazy! Crazy? I was crazy once? They locked me in a room. A Ronny room. A Ronny room with Ronnyies (and rats). Ronnies? Ronnies make me ok im not typing more of this", "This user should probably touch grass...", "This user should DEFINITELY touch grass!", "pretty cool i guess.", "If you think this is fun, try the real game on Steam! no this isnt an ad this is a joke obviously *nervous laugh*", "jk this user only has negative one because he's bad at video games :(", "peak flex"]
 
 @bot.tree.command(name="brag", description="Publicly show how many points you have")
 @discord.app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
